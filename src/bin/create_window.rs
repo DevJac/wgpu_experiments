@@ -26,11 +26,11 @@ fn main() {
         // WindowEvents are speicific to a window. Moving, resizing, gaining focus, etc.
         // A button press may be specific to a window if the operating system "routes"
         // that button press to the window.
-        match event {
+        if let
             winit::event::Event::WindowEvent {
                 window_id: _,
                 event: window_event,
-            } => match window_event {
+            } = event { match window_event {
                 winit::event::WindowEvent::CloseRequested => control_flow.set_exit(),
                 winit::event::WindowEvent::KeyboardInput {
                     device_id: _,
@@ -42,8 +42,7 @@ fn main() {
                     is_synthetic: _,
                 } => control_flow.set_exit(),
                 _ => {}
-            },
-            _ => {}
+            }
         }
     });
 }
