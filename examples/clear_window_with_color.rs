@@ -8,6 +8,8 @@ fn clear_screen(
         device.create_command_encoder(&wgpu::CommandEncoderDescriptor::default());
     {
         // RenderPass is a relatively high level rendering concept in WGPU.
+        // You wont get much rendering done without a RenderingPass.
+        // A RenderPass consists of color attachments and depth stencil attachments.
         let _render_pass = command_encoder.begin_render_pass(&wgpu::RenderPassDescriptor {
             label: None,
             // RenderPassColorAttachments focus on rendering to specific textures.
@@ -56,6 +58,7 @@ fn main() {
     // We have to ensure this ourselves.
     let surface = unsafe { instance.create_surface(&window) }.unwrap();
 
+    // surface will be moved into the loop.
     event_loop.run(move |event, _, control_flow| {
         match event {
             winit::event::Event::NewEvents(_) => {
